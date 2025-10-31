@@ -79,8 +79,7 @@ function render(variables = {}) {
     let HTMLsocialMedia = "";
     for (let red in socialLinks) {
       if (!socialLinks[red] || socialLinks[red] === null) HTMLsocialMedia = "";
-      HTMLsocialMedia += `<li><a target="_blank" href="${socialLinks[red] +
-        variables[red]}"><i class="fab fa-${red}"></i></a></li>`;
+      HTMLsocialMedia += `<li><a target="_blank" href="${socialLinks[red] + variables[red]}"><i class="fab fa-${red}"></i></a></li>`;
     }
     return HTMLsocialMedia;
   }
