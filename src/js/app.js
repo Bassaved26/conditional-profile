@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable no-empty */
 import "../style/index.css";
 
 /**
@@ -29,23 +31,73 @@ function render(variables = {}) {
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
 
-  // reset the website body with the new html output
+  //REVISANDO INPUTS
+  function revisionInputs() {
+    let HTMLname = variables.name;
+    let HTMLlastname = variables.lastName;
+
+    if (!HTMLname || HTMLname.trim() === "") HTMLname = "name";
+
+    if (!HTMLlastname || HTMLlastname.trim() === "") HTMLlastname = "lastname";
+
+    return `${HTMLname} ${HTMLlastname}`;
+  }
+
+  // DEFINIENDO EL ROLE
+  let city = ["Toronto", "Munich", "Miami", "Caracas"];
+  let country = ["Venezuela", "Germany", "USA", "Canada"];
+  let role = ["Web Developer", "Floor Planner", "Technical Writter"];
+
+  let HTMLcity = "";
+  let HTMLcountry = "";
+  let HTMLrole = "";
+
+  for (let v of city) {
+    if (variables.city === null) HTMLcity = "city";
+    if (variables.city === v) HTMLcity = v;
+  }
+  for (let v of country) {
+    if (variables.country === null) HTMLcountry = "country";
+    if (variables.country === v) HTMLcountry = v;
+  }
+  for (let v of role) {
+    if (variables.role === null) HTMLrole = "role";
+    if (variables.role === v) HTMLrole = v;
+  }
+
+  let HTMLposition = variables.socialMediaPosition;
+  if (HTMLposition === "Left") HTMLposition = "position-left";
+
+  const socialLinks = {
+    twitter: "https://twitter.com/",
+    github: "https://github.com/",
+    linkedin: "https://linkedin.com/in/",
+    instagram: "https://instagram.com/"
+  };
+
+  function socialMedia() {
+    let HTMLsocialMedia = "";
+    for (let red in socialLinks) {
+      if (!socialLinks[red] || socialLinks[red] === null) HTMLsocialMedia = "";
+      HTMLsocialMedia += `<li><a target="_blank" href="${socialLinks[red] +
+        variables[red]}"><i class="fab fa-${red}"></i></a></li>`;
+    }
+    return HTMLsocialMedia;
+  }
+
+  // reset the website body with the new html output"
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/school/4geeksacademy"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/4geeksacademy"><i class="fab fa-instagram"></i></a></li>
+          <h1>${revisionInputs()}</h1>
+          <h2>${HTMLrole}</h2>
+          <h3>${HTMLcity} ${HTMLcountry}</h3>
+          <ul class= ${HTMLposition}>
+           ${socialMedia()}
           </ul>
         </div>
     `;
 }
-
 /**
  * Don't change any of the lines below, here is where we do the logic for the dropdowns
  */
