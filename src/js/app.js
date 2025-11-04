@@ -33,12 +33,9 @@ function render(variables = {}) {
 
   //REVISANDO INPUTS
   function revisionInputs() {
-    let HTMLname = variables.name;
-    let HTMLlastname = variables.lastName;
+    let HTMLname = variables.name ? variables.name : "name";
 
-    if (!HTMLname || HTMLname.trim() === "") HTMLname = "name";
-
-    if (!HTMLlastname || HTMLlastname.trim() === "") HTMLlastname = "lastname";
+    let HTMLlastname = variables.lastName ? variables.lastName : "lastname";
 
     return `${HTMLname} ${HTMLlastname}`;
   }
@@ -53,20 +50,18 @@ function render(variables = {}) {
   let HTMLrole = "";
 
   for (let v of city) {
-    if (variables.city === null) HTMLcity = "city";
-    if (variables.city === v) HTMLcity = v;
+    HTMLcity = variables.city ? variables.city : "city";
   }
   for (let v of country) {
-    if (variables.country === null) HTMLcountry = "country";
-    if (variables.country === v) HTMLcountry = v;
+    HTMLcountry = variables.country ? variables.country : "country";
   }
   for (let v of role) {
-    if (variables.role === null) HTMLrole = "role";
-    if (variables.role === v) HTMLrole = v;
+    HTMLrole = variables.role ? variables.role : "role";
   }
 
-  let HTMLposition = variables.socialMediaPosition;
-  if (HTMLposition === "Left") HTMLposition = "position-left";
+  let HTMLposition = variables.socialMediaPosition
+    ? variables.socialMediaPosition
+    : "position-left";
 
   const socialLinks = {
     twitter: "https://twitter.com/",
@@ -78,8 +73,11 @@ function render(variables = {}) {
   function socialMedia() {
     let HTMLsocialMedia = "";
     for (let red in socialLinks) {
-      if (!socialLinks[red] || socialLinks[red] === null) HTMLsocialMedia = "";
-      HTMLsocialMedia += `<li><a target="_blank" href="${socialLinks[red] + variables[red]}"><i class="fab fa-${red}"></i></a></li>`;
+      HTMLsocialMedia +=
+        !socialLinks[red] || socialLinks[red] === null
+          ? ""
+          : `<li><a target="_blank" href="${socialLinks[red] +
+              variables[red]}"><i class="fab fa-${red}"></i></a></li>`;
     }
     return HTMLsocialMedia;
   }
