@@ -31,67 +31,52 @@ function render(variables = {}) {
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
 
-  //REVISANDO INPUTS
-  function revisionInputs() {
-    let HTMLname = variables.name ? variables.name : "name";
-
-    let HTMLlastname = variables.lastName ? variables.lastName : "lastname";
-
-    return `${HTMLname} ${HTMLlastname}`;
-  }
-
-  // DEFINIENDO EL ROLE
-  let city = ["Toronto", "Munich", "Miami", "Caracas"];
-  let country = ["Venezuela", "Germany", "USA", "Canada"];
-  let role = ["Web Developer", "Floor Planner", "Technical Writter"];
-
-  let HTMLcity = "";
-  let HTMLcountry = "";
-  let HTMLrole = "";
-
-  for (let v of city) {
-    HTMLcity = variables.city ? variables.city : "city";
-  }
-  for (let v of country) {
-    HTMLcountry = variables.country ? variables.country : "country";
-  }
-  for (let v of role) {
-    HTMLrole = variables.role ? variables.role : "role";
-  }
-
-  let HTMLposition = variables.socialMediaPosition
-    ? variables.socialMediaPosition
-    : "position-left";
-
-  const socialLinks = {
-    twitter: "https://twitter.com/",
-    github: "https://github.com/",
-    linkedin: "https://linkedin.com/in/",
-    instagram: "https://instagram.com/"
-  };
-
-  function socialMedia() {
-    let HTMLsocialMedia = "";
-    for (let red in socialLinks) {
-      HTMLsocialMedia +=
-        !socialLinks[red] || socialLinks[red] === null
-          ? ""
-          : `<li><a target="_blank" href="${socialLinks[red] +
-              variables[red]}"><i class="fab fa-${red}"></i></a></li>`;
-    }
-    return HTMLsocialMedia;
-  }
+  let HTMLurl = variables.avatarURL;
+  let HTMLname = variables.name;
+  let HTMLlastname = variables.lastName;
+  let HTMLposition = variables.socialMediaPosition;
+  let HTMLtwitter = variables.twitter;
+  let HTMLgithub = variables.github;
+  let HTMLlinkedin = variables.linkedin;
+  let HTMLinstagram = variables.instagram;
+  let HTMLrole = variables.role;
+  let HTMLcity = variables.city;
+  let HTMLcountry = variables.country;
 
   // reset the website body with the new html output"
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
-          <img src="${variables.avatarURL}" class="photo" />
-          <h1>${revisionInputs()}</h1>
-          <h2>${HTMLrole}</h2>
-          <h3>${HTMLcity} ${HTMLcountry}</h3>
-          <ul class= ${HTMLposition}>
-           ${socialMedia()}
-          </ul>
+          
+          <img src="${HTMLurl}" class="photo" />
+
+          ${HTMLname ? `<h1>${HTMLname}` : "<h1>name"}
+          ${HTMLlastname ? `${HTMLlastname}</h1>` : "lastname</h1>"}
+          ${HTMLrole ? `<h2>${HTMLrole}</h2>` : "<h2>role</h2>"}
+          ${HTMLcity ? `<h3>${HTMLcity}` : "<h3>city"} 
+          ${HTMLcountry ? `${HTMLcountry}</h3>` : "country</h3>"}
+          
+          <ul class= ${HTMLposition ? HTMLposition : "position-left"}>
+
+            <li><a href="https://twitter.com/${
+              HTMLtwitter ? HTMLtwitter : ""
+            }" target=a_blank>
+            <i class="fab fa-twitter"></i></a></li>
+            
+            <li><a href="https://github.com/${
+              HTMLgithub ? HTMLgithub : ""
+            }" target=a_blank>
+            <i class="fab fa-github"></i></a></li>
+            
+            <li><a href="https://linkedin.com/school/${
+              HTMLlinkedin ? HTMLlinkedin : ""
+            }" target=a_blank>
+            <i class="fab fa-linkedin"></i></a></li>
+            
+            <li><a href="https://instagram.com/${
+              HTMLinstagram ? HTMLinstagram : ""
+            }" target=a_blank>
+            <i class="fab fa-instagram"></i></a></li>
+           </ul>
         </div>
     `;
 }
